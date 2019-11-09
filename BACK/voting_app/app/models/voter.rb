@@ -7,6 +7,7 @@ class Voter
   field :cin, type: String
 
   belongs_to :candidate
+  has_one :session_vote
 
   search_in :first_name, :last_name, :cin
 end

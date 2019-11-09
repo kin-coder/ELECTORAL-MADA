@@ -11,6 +11,8 @@ class User
   # include RailsJwtAuth::Invitable
   # include RailsJwtAuth::Lockable
 
+  has_many :session_votes
+
   validates :email, presence: true,
                     uniqueness: true,
                     format: URI::MailTo::EMAIL_REGEXP
