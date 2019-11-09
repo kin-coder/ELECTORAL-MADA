@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../../assets/css/login.css';
 import BASE_URL from '../../cinfig';
@@ -33,11 +33,11 @@ class FormLogin extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
-        if(nextProps.isAuth === true) {
-            this.props.history.push("/dashboard");
-        }
-    }
+    // componentWillReceiveProps(nextProps) {
+    //     if(nextProps.isAuth === true) {
+    //         this.props.history.push("/dashboard");
+    //     }
+    // }
 
     handleInputChange = e => {
         this.setState({
@@ -106,9 +106,9 @@ class FormLogin extends Component {
                             <label className="custom-control-label" htmlFor="customCheck1">Se souvenir de moi</label>
                         </div>
                         <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Se connecter</button>
-                        <hr className="my-4" />
+                        {/* <hr className="my-4" />
                         
-                        <button className="btn btn-lg btn-facebook btn-block text-uppercase" type="reset"><i className="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button>
+                        <button className="btn btn-lg btn-facebook btn-block text-uppercase" type="reset"><i className="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button> */}
                         </form>
                     </div>
                     </div>

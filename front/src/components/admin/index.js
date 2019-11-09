@@ -38,15 +38,15 @@ class Dashboard extends Component {
       }   
     }
   
-    componentWillReceiveProps(nextProps) {
-      console.log(this.props);    
-      if(this.props.isAuth === false && nextProps.appMount === true) {
-          this.props.history.push("/login");
-      }
-      if(nextProps.isAuth === false && this.props.appMount === true) {
-        this.props.history.push("/login");
-      }
-    }
+    // componentWillReceiveProps(nextProps) {
+    //   console.log(this.props);    
+    //   if(this.props.isAuth === false && nextProps.appMount === true) {
+    //       this.props.history.push("/login");
+    //   }
+    //   if(nextProps.isAuth === false && this.props.appMount === true) {
+    //     this.props.history.push("/login");
+    //   }
+    // }
   
     render() {
       let routeAdmin;
@@ -63,15 +63,37 @@ class Dashboard extends Component {
              
       );
       return (
-          <div className="wrapper pt-5">
-              
-                <div id="content">
-                      <div className="pt-3 pb-0 mb-3">
-                            {routeAdmin}
-                      </div>
-                    
-                </div>
+        <div>
+        <nav className="navbar navbar-expand-md navbar-light bg-light static-top mb-5 shadow">
+          <div className="container">
+            <a className="navbar-brand" href="/">Electoral Mada</a>
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                  <span className="navbar-toggler-icon"></span>
+                </button>
+            <div className="collapse navbar-collapse" id="navbarResponsive">
+              <ul className="navbar-nav ml-auto">
+                <li className="nav-item active">
+                  <a className="nav-link" href="/">Accueil
+                        <span className="sr-only">(current)</span>
+                      </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/">Voter</a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/">Résultats</a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" onClick={this.logout} href="#/login">  Déconnexion</a>
+                </li>
+              </ul>
+            </div>
           </div>
+        </nav>
+        <div>
+          {routeAdmin}
+        </div>
+        </div>              
           
       );
     }

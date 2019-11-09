@@ -45,20 +45,6 @@ class App extends Component {
   }
 
   render() {
-    
-    let route;
-    if(this.state.isAuth === true && 1 === 2) 
-    {
-      route = (
-        <Route
-           
-          path='/dashboard'
-          render={(props) => <Dashboard {...props} appMount={this.state.appMount} callLogout={this.callLogout} isAuth={this.state.isAuth} />}
-        />
-      );
-    }
-    
-
     return (
       <Suspense fallback="loading">
           <div className="content_main">
