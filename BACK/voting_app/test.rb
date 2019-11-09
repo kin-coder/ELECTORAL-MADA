@@ -9,6 +9,8 @@ require 'date'
 
 # print d + my_string
 
-intitule = 'ivato'
+# intitule = 'ivato'
 
-secret = Digest::MD5.hexdigest(intitule + DateTime.now.strftime('%Y%m%d%I%M'))
+# secret = Digest::MD5.hexdigest(intitule + DateTime.now.strftime('%Y%m%d%I%M'))
+
+
