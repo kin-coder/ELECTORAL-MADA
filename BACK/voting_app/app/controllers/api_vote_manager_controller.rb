@@ -1,0 +1,2 @@
+class ApiVoteManagerController < ApplicationController
+end

@@ -8,10 +8,11 @@ gem 'mongoid_search'
 gem 'bson_ext'
 gem 'table_print'
 gem 'rack-cors'
-gem 'devise'
+# gem 'devise'
 
 # gem 'devise-jwt'
 gem 'rails_jwt_auth'
+
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
