@@ -11,8 +11,10 @@ class Voter
   field :district, type: String
   field :region, type: String
 
-  belongs_to :candidate
-  has_one :session_vote
+  field :voted, type: Integer
+
+  belongs_to :candidate, optional: true
+  # has_one :session_vote, optional: true
 
   search_in :first_name, :last_name, :cin
 end
