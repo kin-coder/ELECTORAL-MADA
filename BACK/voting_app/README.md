@@ -1,24 +1,12 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## BIENVENU
 
-Things you may want to cover:
+Etape pour ajouter des donnees fake:
 
-* Ruby version
+    cd /BACK/voting_app
+    rails c
+    v = Voter.new first_name: 'Rakoto', last_name: 'Naivo', cin: '0000000000000'
+    v.save
+    v._keywords
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

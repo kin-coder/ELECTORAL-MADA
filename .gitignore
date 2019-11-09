@@ -8,21 +8,21 @@
 /.bundle
 
 # Ignore all logfiles and tempfiles.
-/log/*
-/tmp/*
-!/log/.keep
-!/tmp/.keep
+/BACK/voting_app/log/*
+/BACK/voting_app/tmp/*
+!/BACK/voting_app/log/.keep
+!/BACK/voting_app/tmp/.keep
 
 
-/public/assets
+/BACK/voting_app/public/assets
 .byebug_history
 
 # Ignore master key for decrypting credentials and more.
-/config/master.key
+/BACK/voting_app/config/master.key
 
-/public/packs
-/public/packs-test
-/node_modules
-/yarn-error.log
+/BACK/voting_app/public/packs
+/BACK/voting_app/public/packs-test
+/BACK/voting_app/node_modules
+/BACK/voting_app/yarn-error.log
 yarn-debug.log*
 .yarn-integrity
