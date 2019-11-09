@@ -1,0 +1,2 @@
+module OauthApplicationHelper
+end
