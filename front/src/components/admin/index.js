@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import DashboardScreen from './dashboard/index.js';
-
+import VoterScreen from './dashboard/voter.js';
+const URL_VOTER = "http://localhost:8000/#/dashboard/voter";
 class Dashboard extends Component {
     constructor (props){
       super(props);
@@ -51,45 +52,52 @@ class Dashboard extends Component {
     render() {
       let routeAdmin;
       routeAdmin = (
-        
         <Switch>
             <Route
               exact
               path='/dashboard'
               component = {DashboardScreen}
             />
-            
+            <Route
+              path='/dashboard/voter'
+              component = {VoterScreen}
+            />      
       </Switch> 
              
       );
       return (
         <div>
-        <nav className="navbar navbar-expand-md navbar-light bg-light static-top mb-5 shadow">
-          <div className="container">
-            <a className="navbar-brand" href="/">Electoral Mada</a>
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                  <span className="navbar-toggler-icon"></span>
-                </button>
-            <div className="collapse navbar-collapse" id="navbarResponsive">
-              <ul className="navbar-nav ml-auto">
-                <li className="nav-item active">
-                  <a className="nav-link" href="/">Accueil
-                        <span className="sr-only">(current)</span>
-                      </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/">Voter</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/">Résultats</a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" onClick={this.logout} href="#/login">  Déconnexion</a>
-                </li>
-              </ul>
+          { ( window.location.href === URL_VOTER ) ? 
+            <span></span>
+          :
+          <nav className="navbar navbar-expand-md navbar-light bg-light static-top mb-5 shadow">
+            <div className="container">
+              <a className="navbar-brand" href="/">Electoral Mada</a>
+              <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                  </button>
+              <div className="collapse navbar-collapse" id="navbarResponsive">
+                <ul className="navbar-nav ml-auto">
+                  <li className="nav-item active">
+                    <a className="nav-link" href="/">Accueil
+                          <span className="sr-only">(current)</span>
+                        </a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="/">Voter</a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" href="/">Résultats</a>
+                  </li>
+                  <li className="nav-item">
+                    <a className="nav-link" onClick={this.logout} href="#/login">  Déconnexion</a>
+                  </li>
+                </ul>
+              </div>
             </div>
-          </div>
-        </nav>
+          </nav>
+          
+          }
         <div>
           {routeAdmin}
         </div>
