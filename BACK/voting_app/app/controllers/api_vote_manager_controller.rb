@@ -16,6 +16,12 @@ class ApiVoteManagerController < ActionController::API
     end
   end
 
+  def check_session_vote
+    agent = User.where(email: params[:email])[0]
+    session_vote = SessionVote.where(user: agent, status_vote: 0)[0]
+    render json: session_vote
+  end
+
   def end_session
     session_vote = SessionVote.find(params[:session_vote])
     candidate = Candidate.find(params[:candidate])
