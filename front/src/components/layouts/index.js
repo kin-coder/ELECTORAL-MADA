@@ -12,7 +12,7 @@ class Home extends Component {
     }
     render() {
         return (
-            <span>Seanaps</span>
+            <span>ELECTORAL_MADA</span>
         );
     }
 }

@@ -1,42 +1,102 @@
-import React from 'react';
-// import logo from './logo.svg';
-import './assets/css/login.css';
-import { Form } from 'react-bootstrap';
+import React, { Component , Suspense } from 'react';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import Dashboard from './components/admin/index.js';
+// import Header from './components/layouts/header.js';
+import Login from './components/layouts/login';
+// import Register from './components/layouts/form_register.js';
+// import ForgotPassword from './components/layouts/forgot_password.js'
+// import ChangePassword from './components/layouts/change_pass.js'
+import Home from './components/layouts/index';
 
-function App() {
-  return (
-    <div className="container">
-      <div className="row">
-        <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
-          <div className="card card-signin my-5">
-            <div className="card-body">
-              <h5 className="card-title text-center">Sign In</h5>
-              <form className="form-signin">
-                <div className="form-label-group">
-                  <Form.Control type="email" id="inputEmail" className="form-control" placeholder="Email address" required autoFocus />
-                  <label htmlFor="inputEmail">Email address</label>
-                </div>
+// const URL_WEBUI = "https://accounts.blockchainmyart.org/#/webui";
+class App extends Component {
 
-                <div className="form-label-group">
-                  <Form.Control type="password" id="inputPassword" className="form-control" placeholder="Password" required />
-                  <label htmlFor="inputPassword">Password</label>
-                </div>
 
-                <div className="custom-control custom-checkbox mb-3">
-                  <Form.Control type="checkbox" className="custom-control-input" id="customCheck1" />
-                  <label className="custom-control-label" htmlFor="customCheck1">Remember password</label>
-                </div>
-                <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign in</button>
-                <hr className="my-4" />
-                
-                <button className="btn btn-lg btn-facebook btn-block text-uppercase" type="submit"><i className="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+  constructor(props) {
+    super(props)
+    this.login = this.login.bind(this)
+    this.state = {isAuth : false , appMount : false}
+    this.callLogout = this.callLogout.bind(this)
+  }
+
+
+  login() {
+    return new Promise((resolve,reject) =>
+    {
+      setTimeout(() => {  this.setState({ isAuth: true }); resolve(true); }, 300)
+    });
+  }
+
+  componentDidMount() {
+    if('token' in window.localStorage) {
+      this.setState({ isAuth: true }); 
+    }
+    this.setState({ appMount: true }); 
+  }
+
+  callLogout() {
+    this.setState({isAuth : false});
+    console.log("______logout");
+    
+    return new Promise((resolve,reject) => {
+        window.localStorage.clear();
+        resolve(true);
+    });
+  }
+
+  render() {
+    
+    let route;
+    if(this.state.isAuth === true && 1 === 2) 
+    {
+      route = (
+        <Route
+           
+          path='/dashboard'
+          render={(props) => <Dashboard {...props} appMount={this.state.appMount} callLogout={this.callLogout} isAuth={this.state.isAuth} />}
+        />
+      );
+    }
+    
+
+    return (
+      <Suspense fallback="loading">
+          <div className="content_main">
+        <Router>
+            <Switch>
+            <Route
+              
+              path='/dashboard'
+              component={(props) => <Dashboard {...props} appMount={this.state.appMount} callLogout={this.callLogout} isAuth={this.state.isAuth} />}
+            />    
+    
+              <Route
+                exact 
+                path='/'
+                component={(props) => <Home {...props} login={this.login} isAuth={this.state.isAuth} />}
+              />
+    
+              <Route
+                exact
+                path='/login'
+                component={(props) => <Login {...props} login={this.login} isAuth={this.state.isAuth} />}
+              />
+            
+            {/* <Route
+              exact
+              path='/register'
+              component={(props) => <Register {...props} login={this.login} isAuth={this.state.isAuth} />}
+            /> */}
+        
+               
+            </Switch>
+        </Router>
+          </div>   
+          
+      </Suspense>
+    );
+  }
 }
 
 export default App;
+

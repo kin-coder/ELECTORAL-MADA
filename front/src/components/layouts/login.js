@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../../assets/css/login.css';
-import BASE_URL from '../../../login.json';
-import SweetAlert from 'sweetalert2-react';
+import BASE_URL from '../../cinfig';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class FormLogin extends Component {
     state = {
@@ -18,6 +19,13 @@ class FormLogin extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         
     }
+
+    notify = () => {
+        toast.error("Identifiants invalides !", {
+            position: toast.POSITION.TOP_LEFT
+          });
+    };
+
     componentDidMount () {
         // console.log(this.props);
         if(this.props.isAuth === true){
@@ -33,8 +41,7 @@ class FormLogin extends Component {
 
     handleInputChange = e => {
         this.setState({
-          [e.target.name]: e.target.value,
-          msg_ko:""
+          [e.target.name]: e.target.value
         });
       };
       handleReset = () => {
@@ -50,78 +57,67 @@ class FormLogin extends Component {
             ) {
                 const { email, password } = this.state;
                     // axios.post(`${BASE_URL}`, { email, password })
-                    axios.get(`${BASE_URL}`, { email, password })
+                    axios.post(`${BASE_URL}/session/`, { email, password })
 
                     .then(response => {
-                        if(response.data.status === "success"){
+                        if(response.data.session){
                             this.props.login()
                             .then((data) => { 
                                 // window.localStorage.setItem('id',response.data.id);
-                                window.localStorage.setItem('token',response.data.token);
+                                window.localStorage.setItem('token',response.data.session.jwt);
                                 // window.localStorage.setItem('expires',response.data.expires);
-                                window.localStorage.setItem('email',response.data.email);
+                                window.localStorage.setItem('email',response.data.session.email);
                                 // window.localStorage.setItem('label',response.data.label);
                                 this.props.history.push("/dashboard");
                             });
-                        }else {
-                            if(response.data.message === "auth_error"){
-                                this.setState({ show: true, isAuth: false, msg_ko: "Identifiant Error !" });
-                            }
-                            if(response.data.message === "disabled_user"){
-                                this.setState({ show: true, isAuth: false, msg_ko: this.props.t('user_disabled') });
-                            }
                         }
                         
                     })
                     .catch(error => {
-                        throw(error); 
+                        // this.setState({ show: true, isAuth: false, msg_ko: "Identifiant Error !" });
+                        // console.log("koooooo");
+                        this.notify();
+
+                        
                     });
             }   
       };
     render() {
       return (
-        <section className="main">
-            <div className="container">
-                <div className="row justify-content-center">
-                <div className="col-md-5 col-10">
-                <h1 className="text-center my-3">Login</h1>
-                {/* <p className="mb-0 text-center msg_ko">{this.state.msg_ko}</p> */}
-                <Form className="py-3" onSubmit={ this.handleSubmit }>
-                    <Form.Group controlId="formLoginEmail">
-                        <Form.Label>{this.props.t('email')}</Form.Label>
-                        <Form.Control type="email" placeholder={this.props.t('email')} name="email" onChange={ this.handleInputChange } value={ this.state.email } required />
-                    </Form.Group>
-
-                    <Form.Group controlId="formLoginPassword">
-                        <Form.Label>{this.props.t('password')}</Form.Label>
-                        <Form.Control type="password" placeholder={this.props.t('password')} autoComplete="off" name="password" onChange={ this.handleInputChange } value={ this.state.password } required />
-                    </Form.Group>
-                        <div className="d-flex justify-content-between align-items-center">
-                            
-                            <Form.Check type="checkbox" label={this.props.t('remember_me')} />
-                            
-                            <Button variant="outline-dark" type="submit">{this.props.t('btn_login')}</Button>
-                            
+        <div className="container">
+            <div className="row">
+                <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                    <div className="card card-signin my-5">
+                    <div className="card-body">
+                        <h5 className="card-title text-center">Connexion</h5>
+                        <form className="form-signin" onSubmit={ this.handleSubmit }>
+                        <div className="form-label-group">
+                            <Form.Control type="email" name="email" id="inputEmail" onChange={ this.handleInputChange } value={ this.state.email } className="form-control" placeholder="Email address" required autoFocus />
+                            <label htmlFor="inputEmail">Adresse email</label>
                         </div>
-                </Form>
-                <hr className="w-100" />
-                <div className="d-flex justify-content-around py-3">
-                    <Link to="/forgot_password">{this.props.t('forgot_password')}</Link>
-                        <span> | </span>
-                    <Link to="/register">{this.props.t('signup')}</Link>
+        
+                        <div className="form-label-group">
+                            <Form.Control type="password" name="password" id="inputPassword" onChange={ this.handleInputChange } value={ this.state.password } className="form-control" placeholder="Password" required />
+                            <label htmlFor="inputPassword">Mot de passe</label>
+                        </div>
+        
+                        <div className="custom-control custom-checkbox mb-3">
+                            <Form.Control type="checkbox" className="custom-control-input" id="customCheck1" />
+                            <label className="custom-control-label" htmlFor="customCheck1">Se souvenir de moi</label>
+                        </div>
+                        <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Se connecter</button>
+                        <hr className="my-4" />
+                        
+                        <button className="btn btn-lg btn-facebook btn-block text-uppercase" type="reset"><i className="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button>
+                        </form>
+                    </div>
+                    </div>
                 </div>
-                </div>
-                </div>
-                <SweetAlert
-                    show={this.state.show}
-                    type="warning"
-                    text={this.state.msg_ko}
-                    onConfirm={() => this.setState({ show: false })}
-                />
             </div>
-        </section>
+            <ToastContainer />
+        </div>
         );
     }
 }
 
-export default withTranslation()(FormLogin);
+export default FormLogin;
