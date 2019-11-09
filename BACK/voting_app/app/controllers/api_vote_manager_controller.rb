@@ -1,4 +1,7 @@
 class ApiVoteManagerController < ActionController::API
+  include RailsJwtAuth::AuthenticableHelper
+  before_action :authenticate!
+  
   def begin_session
     agent = User.where(email: params[:email])[0]
     voter = Voter.find(params[:voter])
