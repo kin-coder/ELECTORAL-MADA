@@ -11,5 +11,6 @@ Rails.application.routes.draw do
   get '/api/test', to: 'api_voter#voter_test'
   get '/oauth/authorize/:entitled/:secret', to: 'oauth_application#authorize'
   post '/api/session_vote/begin', to: 'api_vote_manager#begin_session'
+  post '/api/session_vote/end', to: 'api_vote_manager#end_session'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
