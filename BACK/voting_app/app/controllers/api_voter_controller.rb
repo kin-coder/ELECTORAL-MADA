@@ -1,5 +1,5 @@
 class ApiVoterController < ActionController::API
-  # include RailsJwtAuth::AuthenticableHelper
+  include RailsJwtAuth::AuthenticableHelper
   before_action :authenticate!
   def all_voters
     voters = Voter.all

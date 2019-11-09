@@ -1,3 +1,3 @@
 class ApplicationController < ActionController::API
-  include RailsJwtAuth::AuthenticableHelper
+  # include RailsJwtAuth::AuthenticableHelper
 end
