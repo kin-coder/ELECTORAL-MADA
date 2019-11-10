@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { IoIosLock } from 'react-icons/io';
 
 import DashboardScreen from './dashboard/index.js';
 import VoterScreen from './dashboard/voter.js';
@@ -90,7 +91,7 @@ class Dashboard extends Component {
                     <a className="nav-link" href="/">Résultats</a>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" onClick={this.logout} href="#/login">  Déconnexion</a>
+                    <a className="nav-link" onClick={this.logout} href="#/login"><IoIosLock/> Déconnexion</a>
                   </li>
                 </ul>
               </div>
