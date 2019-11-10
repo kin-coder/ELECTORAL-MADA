@@ -4,6 +4,8 @@ import { IoIosLock } from 'react-icons/io';
 import { Link } from 'react-router-dom';
 import DashboardScreen from './dashboard/index.js';
 import VoterScreen from './dashboard/voter.js';
+import ResultScreen from './dashboard/resultat.js';
+import AddVoterScreen from './dashboard/addVoter.js';
 const URL_VOTER = "http://localhost:8000/#/dashboard/voter";
 class Dashboard extends Component {
     constructor (props){
@@ -62,7 +64,16 @@ class Dashboard extends Component {
             <Route
               path='/dashboard/voter'
               component = {VoterScreen}
-            />      
+            /> 
+
+            <Route
+              path='/dashboard/results'
+              component = {ResultScreen}
+            /> 
+            <Route
+              path='/dashboard/ajouterElecteur'
+              component = {AddVoterScreen}
+            />    
       </Switch> 
              
       );
@@ -86,7 +97,7 @@ class Dashboard extends Component {
                     <Link to="/dashboard/voter" className="nav-link">Voter</Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/dashboard/" className="nav-link">Résultats</Link>
+                    <Link to="/dashboard/results" className="nav-link">Résultats</Link>
                   </li>
                   <li className="nav-item">
                     <Link to="/login" onClick={this.logout} className="nav-link"><IoIosLock/> Déconnexion</Link>
