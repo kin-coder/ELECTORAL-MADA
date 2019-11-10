@@ -20,9 +20,14 @@ class Dashboard extends Component {
         
     }
     
-    notify = () => {
+    notifyError = () => {
+        toast.warn("Isoloir Occupé", {
+            position: toast.POSITION.TOP_CENTER
+            });
+    };
+    notifyOK = () => {
         toast.info("l'électeur peut voter !", {
-            position: toast.POSITION.TOP_LEFT
+            position: toast.POSITION.TOP_CENTER
             });
     };
 
@@ -80,7 +85,11 @@ class Dashboard extends Component {
             const email = localStorage.getItem('email');
             axios.post(`${BASE_URL}/api/session_vote/begin`, {email:email, voter:_id}, {headers} )
                 .then( res  => {
-                        this.notify();
+                    if(res.data.session_vote.$oid){
+                        this.notifyOK();
+                    } else{
+                        this.notifyError();
+                    }
                 })
                 .catch(error => {
                     

@@ -35,10 +35,6 @@ class Voter extends Component {
             //             console.log(error);
             //         });
             // }
-            // this.renderData();
-            // setInterval(() => {
-            //     this.renderData();
-            // }, 5000);
     }
 
     renderData() {
@@ -49,15 +45,17 @@ class Voter extends Component {
                 'Authorization': Authorization,
             };
             const email = localStorage.getItem('email');
-            axios.get(`${BASE_URL}/api/session_vote/check`, { email }, { headers })
-                .then(res => {
-                    // const candidates = res.data;
-                    // this.setState({ candidates: candidates });
-                    console.log("OKOK");
+            axios.post(`${BASE_URL}/api/session_vote/begin`, {email:email, voter:_id}, {headers} )
+                .then( res  => {
+                    if(res.data.session_vote.$oid){
+                        this.notifyOK();
+                    } else{
+                        this.notifyError();
+                    }
                 })
                 .catch(error => {
-                    console.log(error);
-                });
+                    
+                })
         }
     }
 
