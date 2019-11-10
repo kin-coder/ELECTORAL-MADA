@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Form } from 'react-bootstrap';
 class Voter extends Component {
     state = {
-        candidats: [],
+        candidates: [],
         results_voters: [],
         find: "",
     }
@@ -16,26 +16,24 @@ class Voter extends Component {
 
     // }
 
-    // componentDidMount() {
-    //     setTimeout(() => {
-    //         if("token" in localStorage) {
-    //             const Authorization = localStorage.getItem('token');
-    //             const headers = {
-    //                 'Content-Type': 'application/json',
-    //                 'Authorization': Authorization,
-    //             };
+    componentDidMount() {
+            if("token" in localStorage) {
+                const Authorization = localStorage.getItem('token');
+                const headers = {
+                    'Content-Type': 'application/json',
+                    'Authorization': Authorization,
+                };
     
-    //             axios.get(`${BASE_URL}/api/voters/`, { headers })
-    //                 .then(res => {
-    //                     const voters = res.data;
-    //                     this.setState({ voters: voters });
-    //                 })
-    //                 .catch(error => {
-    //                     console.log(error);
-    //                 });
-    //         }
-    //     }, 2000);
-    // }
+                axios.get(`${BASE_URL}/api/candidates/`, { headers })
+                    .then(res => {
+                        const candidates = res.data;
+                        this.setState({ candidates: candidates });
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+            }
+    }
 
     // handleInputChange = e => {
     //     this.setState({
