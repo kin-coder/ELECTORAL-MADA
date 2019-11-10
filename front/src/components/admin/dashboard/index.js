@@ -57,12 +57,28 @@ class Dashboard extends Component {
             });
       };
 
-      handleCheck = (cin) => e => {
-        this.setState({
-            find : cin
-        });
+      handleCheck = (_id) => e => {
+        // this.setState({
+        //     find : cin
+        // });
 
-        console.log(this.state.find)
+        // console.log(this.state.find)
+        if("token" in localStorage) {
+            const Authorization = localStorage.getItem('token');
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': Authorization,
+            };
+            const email = localStorage.getItem('email');
+            axios.post(`${BASE_URL}/api/session_vote/begin`, {email:email, voter:_id}, {} )
+                .then( res  => {
+                    
+                })
+                .catch(error => {
+                    
+                })
+        }
+
       } 
     
     render() {
@@ -93,15 +109,20 @@ class Dashboard extends Component {
                             ( this.state.find === "" ) ? 
 
                             this.state.voters.map((voter, index) =>
+                                
                                 <tr key={index}>
-                                <th scope="row">{ voter.cin }</th>
-                                <td>{ voter.last_name }</td>
-                                <td>{ voter.first_name }</td>
-                                <td>
-                                    <div className="text-left">
-                                        <button type="button" onClick={this.handleCheck(voter.cin)} className="btn btn-outline-primary">Check</button>
-                                    </div>
-                                </td>
+                                    <th scope="row">{ voter.cin }</th>
+                                    <td>{ voter.last_name }</td>
+                                    <td>{ voter.first_name }</td>
+                                    <td>
+                                        <div className="text-left">
+                                            {(voter.voted === 1) ?
+                                                <button type="button" desabled className="btn btn-outline-secondary">A déja voter</button>
+                                            :     
+                                                <button type="button" onClick={this.handleCheck(voter._id.$oid)} className="btn btn-outline-primary">Check</button>
+                                            }
+                                        </div>
+                                    </td>
                                 </tr>
                             )
                             :
@@ -111,9 +132,13 @@ class Dashboard extends Component {
                                 <td>{ voter.last_name }</td>
                                 <td>{ voter.first_name }</td>
                                 <td>                                    
-                                    <div className="text-left">
-                                        <button type="button" onClick={this.handleCheck(voter.cin)} className="btn btn-outline-primary">Check</button>
-                                    </div>
+                                        <div className="text-left">
+                                            {(voter.voted === 1) ?
+                                                <button type="button" desabled className="btn btn-outline-secondary">A déja voter</button>
+                                            :     
+                                                <button type="button" onClick={this.handleCheck(voter._id.$oid)} className="btn btn-outline-primary">Check</button>
+                                            }
+                                        </div>
                                 </td>
                                 </tr>
                             )

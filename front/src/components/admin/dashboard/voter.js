@@ -6,6 +6,7 @@ import { Form } from 'react-bootstrap';
 
 class Voter extends Component {
     state = {
+        en_attente: [],
         candidates: [],
         results_voters: [],
         find: "",
@@ -34,6 +35,25 @@ class Voter extends Component {
                         console.log(error);
                     });
             }
+    }
+
+    renderData() {
+        if("token" in localStorage) {
+            const Authorization = localStorage.getItem('token');
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': Authorization,
+            };
+
+            axios.get(`${BASE_URL}/api/session_vote/check`, { headers })
+                .then(res => {
+                    const candidates = res.data;
+                    this.setState({ candidates: candidates });
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
     }
 
     // handleInputChange = e => {
