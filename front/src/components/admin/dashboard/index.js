@@ -3,18 +3,28 @@ import BASE_URL from '../../../cinfig';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Form } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 class Dashboard extends Component {
     state = {
         voters: [],
         results_voters: [],
+        session_vote: [],
         find: "",
     }
-
+    
     constructor(props, context) {
         super(props, context);
         this.handleCheck = this.handleCheck.bind(this);        
-
+        
     }
+    
+    notify = () => {
+        toast.info("l'électeur peut voter !", {
+            position: toast.POSITION.TOP_LEFT
+            });
+    };
 
     componentDidMount() {
         setTimeout(() => {
@@ -32,9 +42,11 @@ class Dashboard extends Component {
                     })
                     .catch(error => {
                         console.log(error);
-                    });
+                    });      
             }
         }, 2000);
+        
+        
     }
 
     handleInputChange = e => {
@@ -55,14 +67,10 @@ class Dashboard extends Component {
             .catch(error => {
                 console.log(error);
             });
-      };
+    };
 
       handleCheck = (_id) => e => {
-        // this.setState({
-        //     find : cin
-        // });
 
-        // console.log(this.state.find)
         if("token" in localStorage) {
             const Authorization = localStorage.getItem('token');
             const headers = {
@@ -70,9 +78,9 @@ class Dashboard extends Component {
                 'Authorization': Authorization,
             };
             const email = localStorage.getItem('email');
-            axios.post(`${BASE_URL}/api/session_vote/begin`, {email:email, voter:_id}, {} )
+            axios.post(`${BASE_URL}/api/session_vote/begin`, {email:email, voter:_id}, {headers} )
                 .then( res  => {
-                    
+                        this.notify();
                 })
                 .catch(error => {
                     
@@ -80,8 +88,33 @@ class Dashboard extends Component {
         }
 
       } 
+
+      getSessionVote () {
+        const Authorization = localStorage.getItem('token');
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': Authorization,
+        };
+        const email = localStorage.getItem('email');
+        axios.get(`${BASE_URL}/api/session_vote/check`, { email }, { headers })
+            .then(res => {
+                
+                if(res.session_vote_id){
+                    // this.setState({
+                    //     voters : [],
+                    //     results_voters : []
+                    // });
+                    console.log(localStorage.getItem('token'));
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        }
+        
     
     render() {
+        
         return (
 
             <div className="mx-lg-5 mx-md-5 mx-2">
@@ -117,7 +150,7 @@ class Dashboard extends Component {
                                     <td>
                                         <div className="text-left">
                                             {(voter.voted === 1) ?
-                                                <button type="button" desabled className="btn btn-outline-secondary">A déja voter</button>
+                                                <button type="button" disabled className="btn btn-outline-secondary">A déja voter</button>
                                             :     
                                                 <button type="button" onClick={this.handleCheck(voter._id.$oid)} className="btn btn-outline-primary">Check</button>
                                             }
@@ -134,7 +167,7 @@ class Dashboard extends Component {
                                 <td>                                    
                                         <div className="text-left">
                                             {(voter.voted === 1) ?
-                                                <button type="button" desabled className="btn btn-outline-secondary">A déja voter</button>
+                                                <button type="button" disabled className="btn btn-outline-secondary">A déja voter</button>
                                             :     
                                                 <button type="button" onClick={this.handleCheck(voter._id.$oid)} className="btn btn-outline-primary">Check</button>
                                             }
@@ -150,6 +183,7 @@ class Dashboard extends Component {
                     <p className="lead mb-0">You've reached the end!</p>
                     </div>
                 </div>
+                <ToastContainer />
             </div>
         );
     }

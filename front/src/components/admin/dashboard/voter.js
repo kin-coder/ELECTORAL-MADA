@@ -19,22 +19,26 @@ class Voter extends Component {
     // }
 
     componentDidMount() {
-            if("token" in localStorage) {
-                const Authorization = localStorage.getItem('token');
-                const headers = {
-                    'Content-Type': 'application/json',
-                    'Authorization': Authorization,
-                };
+            // if("token" in localStorage) {
+            //     const Authorization = localStorage.getItem('token');
+            //     const headers = {
+            //         'Content-Type': 'application/json',
+            //         'Authorization': Authorization,
+            //     };
     
-                axios.get(`${BASE_URL}/api/candidates/`, { headers })
-                    .then(res => {
-                        const candidates = res.data;
-                        this.setState({ candidates: candidates });
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
-            }
+            //     axios.get(`${BASE_URL}/api/candidates/`, { headers })
+            //         .then(res => {
+            //             const candidates = res.data;
+            //             this.setState({ candidates: candidates });
+            //         })
+            //         .catch(error => {
+            //             console.log(error);
+            //         });
+            // }
+            // this.renderData();
+            // setInterval(() => {
+            //     this.renderData();
+            // }, 5000);
     }
 
     renderData() {
@@ -44,11 +48,12 @@ class Voter extends Component {
                 'Content-Type': 'application/json',
                 'Authorization': Authorization,
             };
-
-            axios.get(`${BASE_URL}/api/session_vote/check`, { headers })
+            const email = localStorage.getItem('email');
+            axios.get(`${BASE_URL}/api/session_vote/check`, { email }, { headers })
                 .then(res => {
-                    const candidates = res.data;
-                    this.setState({ candidates: candidates });
+                    // const candidates = res.data;
+                    // this.setState({ candidates: candidates });
+                    console.log("OKOK");
                 })
                 .catch(error => {
                     console.log(error);
