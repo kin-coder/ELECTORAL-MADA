@@ -11,10 +11,7 @@ class ApiVoterController < ActionController::API
     render json: voters
   end
 
-  def voter_test
-
-    my_string = "coucou";
-
-    render json: { :encrypt => Digest::MD5.hexdigest(my_string)}
+  def create_voter
+    
   end
 end
