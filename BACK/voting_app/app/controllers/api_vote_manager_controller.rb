@@ -2,14 +2,12 @@ class ApiVoteManagerController < ActionController::API
   include RailsJwtAuth::AuthenticableHelper
   before_action :authenticate!
 
-  before_action :verify_session_vote
-
   def begin_session
     agent = User.where(email: params[:email])[0]
     voter = Voter.find(params[:voter])
 
     session_vote = SessionVote.where(user: agent, status_vote: 0)
-    if(session_vote.length !== 0)
+    if(session_vote.length != 0)
       session_vote = SessionVote.new 
       session_vote.created_at = DateTime.new
       session_vote.status_vote = 0
@@ -28,7 +26,7 @@ class ApiVoteManagerController < ActionController::API
   def check_session_vote
     agent = User.where(email: params[:email])[0]
     session_vote = SessionVote.where(user: agent, status_vote: 0)
-    if(session_vote.length !== 0)
+    if(session_vote.length != 0)
       voter = Voter.find(session_vote.voter_id)
       render json: { :session_vote_id => session_vote[0]._id, :agent_id => agent._id, :voter_id => voter._id, :first_name_voter => voter.first_name, :last_name_voter => voter.last_name, :email_agent => agent.email }
     else
@@ -54,12 +52,6 @@ class ApiVoteManagerController < ActionController::API
       render json: { :session_vote => "blank" }
     end
     
-
-  end
-
-  private
-  def verify_session_vote
-    agent = User.where(email: params[:email])[0]
 
   end
 end
