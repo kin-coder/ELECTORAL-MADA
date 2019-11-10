@@ -3,6 +3,7 @@ import BASE_URL from '../../../cinfig';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Form } from 'react-bootstrap';
+
 class Voter extends Component {
     state = {
         candidates: [],
@@ -78,15 +79,19 @@ class Voter extends Component {
                 
                 <div class="col-md-10 col-10">
                     <div class="row">
-                        <div class="col-xl-3 col-md-3 mb-4">
-                            <div class="card border-0 shadow">
-                                <img src="https://source.unsplash.com/TMgQMXoglsM/500x350" class="card-img-top" alt="..." />
-                                <div class="card-body text-center">
-                                    <h5 class="card-title mb-0">Team Member</h5>
-                                    <div class="card-text text-black-50">Web Developer</div>
+                        {this.state.candidates.map((candidate, index) =>
+                            <div class="col-xl-3 col-md-3 mb-4" key={index}>
+                                <div class="card border-0 shadow">
+                                    <img src={BASE_URL+'/avatar/'+candidate.avatar} class="card-img-top" alt="..." />
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title mb-0">Numéro : {candidate.number}</h5>
+                                        <div class="card-text text-black-50">{candidate.first_name+' '+candidate.last_name}</div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                            
+                        )}
+
                     </div>
                 </div>
             </div>
