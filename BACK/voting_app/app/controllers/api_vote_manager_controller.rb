@@ -27,8 +27,8 @@ class ApiVoteManagerController < ActionController::API
     agent = User.where(email: params[:email])[0]
     session_vote = SessionVote.where(user: agent, status_vote: 0)
     if(session_vote.length != 0)
-      voter = Voter.find(session_vote.voter_id)
-      render json: { :session_vote_id => session_vote[0]._id, :agent_id => agent._id, :voter_id => session_vote.voter_id, :first_name_voter => voter.first_name, :last_name_voter => voter.last_name, :email_agent => agent.email }
+      voter = Voter.find(session_vote[0].voter_id)
+      render json: { :session_vote_id => session_vote[0]._id, :agent_id => agent._id, :voter_id => session_vote[0].voter_id, :first_name_voter => voter.first_name, :last_name_voter => voter.last_name, :email_agent => agent.email }
     else
       render json: { :session_vote => "blank" }
     end
