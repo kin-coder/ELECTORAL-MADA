@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   post '/api/session_vote/begin', to: 'api_vote_manager#begin_session'
   post '/api/session_vote/end', to: 'api_vote_manager#end_session'
 
-  post '/api/candidates', to: 'candidate_manager#all_candidates'
+  get '/api/candidates', to: 'candidate_manager#all_candidates'
   post '/api/candidates/general_stat', to: 'candidate_manager#all_vote_details'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
