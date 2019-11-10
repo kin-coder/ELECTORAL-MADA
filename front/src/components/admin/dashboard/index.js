@@ -109,7 +109,7 @@ class Dashboard extends Component {
                                 <tr key={index}>
                                 <th scope="row">{ voter.cin }</th>
                                 <td>{ voter.last_name }</td>
-                                <td>{ voter.first_name + voter._id.$oid}</td>
+                                <td>{ voter.first_name }</td>
                                 <td>                                    
                                     <div className="text-left">
                                         <button type="button" onClick={this.handleCheck(voter.cin)} className="btn btn-outline-primary">Check</button>
