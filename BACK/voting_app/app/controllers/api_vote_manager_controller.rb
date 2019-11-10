@@ -8,7 +8,7 @@ class ApiVoteManagerController < ActionController::API
     session_vote = SessionVote.new 
     session_vote.created_at = DateTime.new
     session_vote.status_vote = 0
-    session_vote.voter_id = voter
+    session_vote.voter_id = voter._id
     session_vote.user = agent
 
     if(session_vote.save)
