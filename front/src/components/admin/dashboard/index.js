@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import BASE_URL from '../../../cinfig';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 import { Form } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -128,7 +129,10 @@ class Dashboard extends Component {
             <div className="mx-lg-5 mx-md-5 mx-2">
                 <div className="card border-0 shadow my-5">
                     <div className="card-body p-5">
-                    <h1 className="font-weight-light mb-5">Liste des Electeurs</h1>
+                    <h1 className="font-weight-light mb-5">
+                        Liste des Electeurs / &nbsp;
+                        <Link className="btn btn-outline-primary" to="/dashboard/ajouterElecteur">Ajouter Electeur</Link>
+                    </h1>
                     <div className="form-label-group">
                         <Form.Control type="text" name="find" id="inputPassword" onChange={ this.handleInputChange } value={ this.state.find } className="form-control" placeholder="Rechercher ..." />
                         <label htmlFor="inputPassword">Rechercher ...</label>

@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   get '/api/voters', to: 'api_voter#all_voters'
   get '/api/voters/:search', to: 'api_voter#search_voters'
+  post '/api/voters/create', to: 'api_voter#create_voter'
   # get '/api/test', to: 'api_voter#voter_test'
   # get '/oauth/authorize/:entitled/:secret', to: 'oauth_application#authorize'
   post '/api/session_vote/begin', to: 'api_vote_manager#begin_session'
@@ -16,5 +17,6 @@ Rails.application.routes.draw do
 
   get '/api/candidates', to: 'candidate_manager#all_candidates'
   get '/api/candidates/general_stat', to: 'candidate_manager#all_vote_details'
+  post '/api/candidates/create', to: 'candidate_manager#create_candidate'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

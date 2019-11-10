@@ -12,6 +12,15 @@ class ApiVoterController < ActionController::API
   end
 
   def create_voter
-    
+    voter = Voter.new
+    voter.first_name = params[:first_name]
+    voter.last_name = params[:last_name]
+    voter.cin = params[:cin]
+    if(voter.save)
+      render json: { :created_voter => "success" }
+    else
+      render json: { :created_voter => "error" }
+    end
   end
+
 end
