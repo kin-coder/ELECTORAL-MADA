@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { IoIosLock } from 'react-icons/io';
-
+import { Link } from 'react-router-dom';
 import DashboardScreen from './dashboard/index.js';
 import VoterScreen from './dashboard/voter.js';
 const URL_VOTER = "http://localhost:8000/#/dashboard/voter";
@@ -80,18 +80,16 @@ class Dashboard extends Component {
               <div className="collapse navbar-collapse" id="navbarResponsive">
                 <ul className="navbar-nav ml-auto">
                   <li className="nav-item active">
-                    <a className="nav-link" href="/">Accueil
-                          <span className="sr-only">(current)</span>
-                        </a>
+                    <Link to="/dashboard/" className="nav-link">Accueil</Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/">Voter</a>
+                    <Link to="/dashboard/voter" className="nav-link">Voter</Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" href="/">Résultats</a>
+                    <Link to="/dashboard/" className="nav-link">Résultats</Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link" onClick={this.logout} href="#/login"><IoIosLock/> Déconnexion</a>
+                    <Link to="/login" onClick={this.logout} className="nav-link"><IoIosLock/> Déconnexion</Link>
                   </li>
                 </ul>
               </div>

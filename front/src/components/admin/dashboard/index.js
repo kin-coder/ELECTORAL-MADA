@@ -1,20 +1,34 @@
 import React, { Component } from 'react';
 import BASE_URL from '../../../cinfig';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import { Form } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 class Dashboard extends Component {
     state = {
         voters: [],
         results_voters: [],
+        session_vote: [],
         find: "",
     }
-
+    
     constructor(props, context) {
         super(props, context);
         this.handleCheck = this.handleCheck.bind(this);        
-
+        
     }
+    
+    notifyError = () => {
+        toast.warn("Isoloir Occupé", {
+            position: toast.POSITION.TOP_CENTER
+            });
+    };
+    notifyOK = () => {
+        toast.info("l'électeur peut voter !", {
+            position: toast.POSITION.TOP_CENTER
+            });
+    };
 
     componentDidMount() {
         setTimeout(() => {
@@ -32,9 +46,11 @@ class Dashboard extends Component {
                     })
                     .catch(error => {
                         console.log(error);
-                    });
+                    });      
             }
         }, 2000);
+        
+        
     }
 
     handleInputChange = e => {
@@ -55,17 +71,58 @@ class Dashboard extends Component {
             .catch(error => {
                 console.log(error);
             });
-      };
+    };
 
-      handleCheck = (cin) => e => {
-        this.setState({
-            find : cin
-        });
+      handleCheck = (_id) => e => {
 
-        console.log(this.state.find)
+        if("token" in localStorage) {
+            const Authorization = localStorage.getItem('token');
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': Authorization,
+            };
+            const email = localStorage.getItem('email');
+            axios.post(`${BASE_URL}/api/session_vote/begin`, {email:email, voter:_id}, {headers} )
+                .then( res  => {
+                    if(res.data.session_vote.$oid){
+                        this.notifyOK();
+                    } else{
+                        this.notifyError();
+                    }
+                })
+                .catch(error => {
+                    
+                })
+        }
+
       } 
+
+      getSessionVote () {
+        const Authorization = localStorage.getItem('token');
+        const headers = {
+            'Content-Type': 'application/json',
+            'Authorization': Authorization,
+        };
+        const email = localStorage.getItem('email');
+        axios.get(`${BASE_URL}/api/session_vote/check`, { email }, { headers })
+            .then(res => {
+                
+                if(res.session_vote_id){
+                    // this.setState({
+                    //     voters : [],
+                    //     results_voters : []
+                    // });
+                    console.log(localStorage.getItem('token'));
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            });
+        }
+        
     
     render() {
+        
         return (
 
             <div className="mx-lg-5 mx-md-5 mx-2">
@@ -93,15 +150,20 @@ class Dashboard extends Component {
                             ( this.state.find === "" ) ? 
 
                             this.state.voters.map((voter, index) =>
+                                
                                 <tr key={index}>
-                                <th scope="row">{ voter.cin }</th>
-                                <td>{ voter.last_name }</td>
-                                <td>{ voter.first_name }</td>
-                                <td>
-                                    <div className="text-left">
-                                        <button type="button" onClick={this.handleCheck(voter.cin)} className="btn btn-outline-primary">Check</button>
-                                    </div>
-                                </td>
+                                    <th scope="row">{ voter.cin }</th>
+                                    <td>{ voter.last_name }</td>
+                                    <td>{ voter.first_name }</td>
+                                    <td>
+                                        <div className="text-left">
+                                            {(voter.voted === 1) ?
+                                                <button type="button" disabled className="btn btn-outline-secondary">A déja voter</button>
+                                            :     
+                                                <button type="button" onClick={this.handleCheck(voter._id.$oid)} className="btn btn-outline-primary">Check</button>
+                                            }
+                                        </div>
+                                    </td>
                                 </tr>
                             )
                             :
@@ -111,9 +173,13 @@ class Dashboard extends Component {
                                 <td>{ voter.last_name }</td>
                                 <td>{ voter.first_name }</td>
                                 <td>                                    
-                                    <div className="text-left">
-                                        <button type="button" onClick={this.handleCheck(voter.cin)} className="btn btn-outline-primary">Check</button>
-                                    </div>
+                                        <div className="text-left">
+                                            {(voter.voted === 1) ?
+                                                <button type="button" disabled className="btn btn-outline-secondary">A déja voter</button>
+                                            :     
+                                                <button type="button" onClick={this.handleCheck(voter._id.$oid)} className="btn btn-outline-primary">Check</button>
+                                            }
+                                        </div>
                                 </td>
                                 </tr>
                             )
@@ -125,6 +191,7 @@ class Dashboard extends Component {
                     <p className="lead mb-0">You've reached the end!</p>
                     </div>
                 </div>
+                <ToastContainer />
             </div>
         );
     }
