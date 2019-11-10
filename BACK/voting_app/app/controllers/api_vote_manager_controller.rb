@@ -8,6 +8,8 @@ class ApiVoteManagerController < ActionController::API
 
     session_vote = SessionVote.where(user: agent, status_vote: 0)
     if(session_vote.length != 0)
+      render json: { :session_vote => "not blank" }
+    else
       session_vote = SessionVote.new 
       session_vote.created_at = DateTime.new
       session_vote.status_vote = 0
@@ -17,8 +19,6 @@ class ApiVoteManagerController < ActionController::API
       if(session_vote.save)
         render json: { :session_vote => session_vote._id, :agent => agent._id, :email_agent => agent.email, :voter => voter }
       end
-    else
-      render json: { :session_vote => "blank" }
     end
 
   end
