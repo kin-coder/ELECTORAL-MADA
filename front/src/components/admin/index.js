@@ -89,7 +89,7 @@ class Dashboard extends Component {
                     <Link to="/dashboard/" className="nav-link">Résultats</Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/login" className="nav-link"><IoIosLock/> Déconnexion</Link>
+                    <Link to="/login" onClick={this.logout} className="nav-link"><IoIosLock/> Déconnexion</Link>
                   </li>
                 </ul>
               </div>

@@ -111,7 +111,11 @@ class Voter extends Component {
                     <div className="row">
                         {this.state.candidates.map((candidate, index) =>
                             <div className="col-xl-3 col-md-3 mb-4" key={index}>
-                                <div className="card border-0 cardCandidat shadow" onClick={this.handleVoter(candidate._id.$oid)}>
+                                <div className="card border-0 cardCandidat shadow"
+                                    
+                                    onClick={this.handleVoter(candidate._id.$oid)}
+
+                                >
                                     <img src={BASE_URL+'/avatar/'+candidate.avatar} className="card-img-top" alt="..." />
                                     <div className="card-body text-center">
                                         <h5 className="card-title mb-0">Numéro : {candidate.number}</h5>
