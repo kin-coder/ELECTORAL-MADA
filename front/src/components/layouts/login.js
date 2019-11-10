@@ -6,6 +6,7 @@ import '../../assets/css/login.css';
 import BASE_URL from '../../cinfig';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { IoIosPower } from "react-icons/io";
 
 class FormLogin extends Component {
     state = {
@@ -84,7 +85,7 @@ class FormLogin extends Component {
       };
     render() {
       return (
-        <div className="container">
+        <div className="container" id="gtc-login">
             <div className="row">
                 <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
                     <div className="card card-signin my-5">
@@ -105,7 +106,7 @@ class FormLogin extends Component {
                             <Form.Control type="checkbox" className="custom-control-input" id="customCheck1" />
                             <label className="custom-control-label" htmlFor="customCheck1">Se souvenir de moi</label>
                         </div>
-                        <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Se connecter</button>
+                        <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit"><IoIosPower/> Se connecter</button>
                         {/* <hr className="my-4" />
                         
                         <button className="btn btn-lg btn-facebook btn-block text-uppercase" type="reset"><i className="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button> */}
