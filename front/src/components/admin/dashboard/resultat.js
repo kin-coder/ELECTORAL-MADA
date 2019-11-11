@@ -58,7 +58,7 @@ class Resultat extends Component {
                                 <li key={i} className="list-group-item p-3 mt-4 animated fadeIn">
                                     <div className="row">
                                         <div className="col-4 text-center">
-                                            <img className="border border-success rounded rounded-circle" style={ {border: "5px solid"} } height="150" src={ AVATAR_URL + g.avatar } alt="" />
+                                            <img className="shadow rounded rounded-circle" style={ {border: "4px solid"} } height="150" src={ AVATAR_URL + g.avatar } alt="" />
                                         </div>
                                         <div className="col-4 candidat-name">
                                             <h3><b>{g.candidate_last_name +" "+ g.candidate_first_name}</b></h3>
