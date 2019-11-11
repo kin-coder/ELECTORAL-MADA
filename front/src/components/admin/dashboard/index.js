@@ -155,7 +155,7 @@ class Dashboard extends Component {
 
                             this.state.voters.map((voter, index) =>
                                 
-                                <tr key={index}>
+                                <tr key={index} className="animated fadeIn">
                                     <th scope="row">{ voter.cin }</th>
                                     <td>{ voter.last_name }</td>
                                     <td>{ voter.first_name }</td>

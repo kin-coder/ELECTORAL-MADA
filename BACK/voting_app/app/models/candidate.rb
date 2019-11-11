@@ -7,3 +7,4 @@ class Candidate
   
   has_many :voters
 end
+
