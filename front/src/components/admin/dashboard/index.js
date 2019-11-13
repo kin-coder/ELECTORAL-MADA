@@ -211,7 +211,7 @@ class Dashboard extends Component {
                                             {(voter.voted === 1) ?
                                                 <button type="button" disabled className="btn btn-outline-secondary">A déja voter</button>
                                             :     
-                                                <button type="button" onClick={this.handleCheck(voter.cin)} className="btn btn-outline-primary">Check</button>
+                                                <button type="button" onClick={this.handleCheck(voter._id.$oid)} className="btn btn-outline-primary">Check</button>
                                             }
                                         </div>
                                     </td>
@@ -228,7 +228,7 @@ class Dashboard extends Component {
                                             {(voter.voted === 1) ?
                                                 <button type="button" disabled className="btn btn-outline-secondary">A déja voter</button>
                                             :     
-                                                <button type="button" onClick={this.handleCheck(voter.cin)} className="btn btn-outline-primary">Check</button>
+                                                <button type="button" onClick={this.handleCheck(voter._id.$oid)} className="btn btn-outline-primary">Check</button>
                                             }
                                         </div>
                                 </td>
