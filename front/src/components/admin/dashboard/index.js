@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import BASE_URL from '../../../cinfig';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { Form } from 'react-bootstrap';
+import { Form, Modal, Button } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FaQrcode } from "react-icons/fa";
+import QrReader from 'react-qr-reader'
 
 class Dashboard extends Component {
     state = {
@@ -12,6 +14,8 @@ class Dashboard extends Component {
         results_voters: [],
         session_vote: [],
         find: "",
+        show: false,
+        result_qr: "No result"
     }
     
     constructor(props, context) {
@@ -120,19 +124,62 @@ class Dashboard extends Component {
                 console.log(error);
             });
         }
+
+        handleScan = data => {
+            const Authorization = localStorage.getItem('token');
+            const headers = {
+                'Content-Type': 'application/json',
+                'Authorization': Authorization,
+            };
+            if (data) {
+
+                axios.get(`${BASE_URL}/api/voters/${data}`, { headers })
+                    .then(res => {
+                        const results_voters = res.data;
+                        this.setState({ 
+                            find : data,
+                            results_voters: results_voters,
+                            show : false,
+                        });
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+
+            }
+        }
+
+        handleError = err => {
+            console.error(err)
+        }
         
     
     render() {
-        
+
+        const handleClose = () => 
+            this.setState({
+                show: false
+            });
+        const handleShow = () => 
+            this.setState({
+                show: true
+            });
+
         return (
 
             <div className="mx-lg-5 mx-md-5 mx-2">
                 <div className="card border-0 shadow my-5">
                     <div className="card-body p-5">
-                    <h1 className="font-weight-light mb-5">
-                        Liste des Electeurs / &nbsp;
-                        <Link className="btn btn-outline-primary" to="/dashboard/ajouterElecteur">Ajouter Electeur</Link>
-                    </h1>
+                        <div className="d-flex justify-content-between  mb-5">
+                            <h1 className="font-weight-light">
+                                Liste des Electeurs / &nbsp;
+                                <Link className="btn btn-outline-primary" to="/dashboard/ajouterElecteur">Ajouter Electeur</Link>
+                            </h1>
+
+                            <button className="btn btn-outline-secondary" onClick={handleShow}> 
+                                <FaQrcode/> qrCode
+                            </button>
+                        </div>
                     <div className="form-label-group">
                         <Form.Control type="text" name="find" id="inputPassword" onChange={ this.handleInputChange } value={ this.state.find } className="form-control" placeholder="Rechercher ..." />
                         <label htmlFor="inputPassword">Rechercher ...</label>
@@ -164,7 +211,7 @@ class Dashboard extends Component {
                                             {(voter.voted === 1) ?
                                                 <button type="button" disabled className="btn btn-outline-secondary">A déja voter</button>
                                             :     
-                                                <button type="button" onClick={this.handleCheck(voter._id.$oid)} className="btn btn-outline-primary">Check</button>
+                                                <button type="button" onClick={this.handleCheck(voter.cin)} className="btn btn-outline-primary">Check</button>
                                             }
                                         </div>
                                     </td>
@@ -181,7 +228,7 @@ class Dashboard extends Component {
                                             {(voter.voted === 1) ?
                                                 <button type="button" disabled className="btn btn-outline-secondary">A déja voter</button>
                                             :     
-                                                <button type="button" onClick={this.handleCheck(voter._id.$oid)} className="btn btn-outline-primary">Check</button>
+                                                <button type="button" onClick={this.handleCheck(voter.cin)} className="btn btn-outline-primary">Check</button>
                                             }
                                         </div>
                                 </td>
@@ -192,10 +239,31 @@ class Dashboard extends Component {
                         </table>
                         </div>
                     <div className="my-5"></div>
-                    <p className="lead mb-0">You've reached the end!</p>
+                    {/* <p className="lead mb-0">You've reached the end!</p> */}
                     </div>
                 </div>
                 <ToastContainer />
+
+                {/* Modal qrCode */}
+                <Modal show={this.state.show} onHide={handleClose}>
+                    <Modal.Header closeButton>
+                    <Modal.Title>Scanne qrCode</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                    <QrReader
+                        delay={300}
+                        onError={this.handleError}
+                        onScan={this.handleScan}
+                        style={{ width: '100%' }}
+                    />
+                    </Modal.Body>
+                    <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Annuler
+                    </Button>
+                    </Modal.Footer>
+                </Modal>
+                {/* End Modal qrCode */}
             </div>
         );
     }

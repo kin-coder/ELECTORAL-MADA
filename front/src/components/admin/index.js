@@ -6,6 +6,7 @@ import DashboardScreen from './dashboard/index.js';
 import VoterScreen from './dashboard/voter.js';
 import ResultScreen from './dashboard/resultat.js';
 import AddVoterScreen from './dashboard/addVoter.js';
+import AddCandidatScreen from './dashboard/addCandidat.js';
 const URL_VOTER = "http://localhost:8000/#/dashboard/voter";
 class Dashboard extends Component {
     constructor (props){
@@ -73,6 +74,10 @@ class Dashboard extends Component {
             <Route
               path='/dashboard/ajouterElecteur'
               component = {AddVoterScreen}
+            />
+            <Route
+              path='/dashboard/ajouterCandidat'
+              component = {AddCandidatScreen}
             />    
       </Switch> 
              
@@ -98,6 +103,9 @@ class Dashboard extends Component {
                   </li>
                   <li className="nav-item">
                     <Link to="/dashboard/results" className="nav-link">Résultats</Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/dashboard/ajouterCandidat" className="nav-link">Candidats</Link>
                   </li>
                   <li className="nav-item">
                     <Link to="/login" onClick={this.logout} className="nav-link"><IoIosLock/> Déconnexion</Link>
