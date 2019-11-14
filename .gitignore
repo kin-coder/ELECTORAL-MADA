@@ -30,6 +30,7 @@ yarn-debug.log*
 # FRONT 
 
 # dependencies
+node_modules
 front/node_modules
 front/.pnp
 front/.pnp.js
