@@ -7,6 +7,7 @@ import VoterScreen from './dashboard/voter.js';
 import ResultScreen from './dashboard/resultat.js';
 import AddVoterScreen from './dashboard/addVoter.js';
 import AddCandidatScreen from './dashboard/addCandidat.js';
+import UploadScreen from './dashboard/upload.js';
 const URL_VOTER = "http://localhost:8000/#/dashboard/voter";
 class Dashboard extends Component {
     constructor (props){
@@ -78,6 +79,10 @@ class Dashboard extends Component {
             <Route
               path='/dashboard/ajouterCandidat'
               component = {AddCandidatScreen}
+            /> 
+            <Route
+              path='/dashboard/upload'
+              component = {UploadScreen}
             />    
       </Switch> 
              
