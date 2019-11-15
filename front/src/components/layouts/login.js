@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Form } from 'react-bootstrap';
-// import { Link } from 'react-router-dom';
+import { Form, Collapse } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import '../../assets/css/login.css';
 import BASE_URL from '../../cinfig';
@@ -13,7 +13,8 @@ class FormLogin extends Component {
         email: "",
         password: "",
         isAuth: false,
-        msg_ko:""
+        msg_ko:"",
+        open_login : false
       };
     constructor (props){
         super(props);
@@ -84,37 +85,46 @@ class FormLogin extends Component {
             }   
       };
     render() {
+        const { open_login } = this.state;
       return (
         <div className="container" id="gtc-login">
-            <div className="row">
-                <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
-                    <div className="card card-signin my-5">
-                    <div className="card-body">
-                        <h5 className="card-title text-center">Connexion</h5>
-                        <form className="form-signin" onSubmit={ this.handleSubmit }>
-                        <div className="form-label-group">
-                            <Form.Control type="email" name="email" id="inputEmail" onChange={ this.handleInputChange } value={ this.state.email } className="form-control" placeholder="Email address" required autoFocus />
-                            <label htmlFor="inputEmail">Adresse email</label>
-                        </div>
-        
-                        <div className="form-label-group">
-                            <Form.Control type="password" name="password" id="inputPassword" onChange={ this.handleInputChange } value={ this.state.password } className="form-control" placeholder="Password" required />
-                            <label htmlFor="inputPassword">Mot de passe</label>
-                        </div>
-        
-                        <div className="custom-control custom-checkbox mb-3">
-                            <Form.Control type="checkbox" className="custom-control-input" id="customCheck1" />
-                            <label className="custom-control-label" htmlFor="customCheck1">Se souvenir de moi</label>
-                        </div>
-                        <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit"><IoIosPower/> Se connecter</button>
-                        {/* <hr className="my-4" />
-                        
-                        <button className="btn btn-lg btn-facebook btn-block text-uppercase" type="reset"><i className="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button> */}
-                        </form>
-                    </div>
+            <nav className="nav nav-pills nav-fill">
+                <button type="button" onClick={() => this.setState({ open_login: !open_login })} aria-expanded={open_login} className="nav-item btn btn-outline-light btn-lg mr-2">
+                    Connexion
+                </button>
+                <Link to="/sondages" className="nav-item btn btn-outline-dark btn-lg ml-2">Sondages</Link>
+            </nav>
+            <Collapse in={this.state.open_login}>
+                <div className="row">
+                    <div className="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                        <div className="card card-signin my-5">
+                            <div className="card-body">
+                                <h5 className="card-title text-center">Connexion</h5>
+                                <form className="form-signin" onSubmit={ this.handleSubmit }>
+                                <div className="form-label-group">
+                                    <Form.Control type="email" name="email" id="inputEmail" onChange={ this.handleInputChange } value={ this.state.email } className="form-control" placeholder="Email address" required autoFocus />
+                                    <label htmlFor="inputEmail">Adresse email</label>
+                                </div>
+                
+                                <div className="form-label-group">
+                                    <Form.Control type="password" name="password" id="inputPassword" onChange={ this.handleInputChange } value={ this.state.password } className="form-control" placeholder="Password" required />
+                                    <label htmlFor="inputPassword">Mot de passe</label>
+                                </div>
+                
+                                <div className="custom-control custom-checkbox mb-3">
+                                    <Form.Control type="checkbox" className="custom-control-input" id="customCheck1" />
+                                    <label className="custom-control-label" htmlFor="customCheck1">Se souvenir de moi</label>
+                                </div>
+                                <button className="btn btn-lg btn-primary btn-block text-uppercase" type="submit"><IoIosPower/> Se connecter</button>
+                                {/* <hr className="my-4" />
+                                
+                                <button className="btn btn-lg btn-facebook btn-block text-uppercase" type="reset"><i className="fab fa-facebook-f mr-2"></i> Sign in with Facebook</button> */}
+                                </form>
+                            </div>
+                            </div>
                     </div>
                 </div>
-            </div>
+            </Collapse>
             <ToastContainer />
         </div>
         );

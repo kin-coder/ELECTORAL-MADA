@@ -11,6 +11,10 @@
     color: #777;
     font-family: 'Barlow Semi Condensed', sans-serif;
   }
+
+  .btn {
+    border-radius: 0px!important;
+  }
   
   .card-signin {
     border: 0;
@@ -165,7 +169,7 @@
   
 
 
-  @charset "UTF-8";
+
 
 /*!
  * animate.css -https://daneden.github.io/animate.css/
