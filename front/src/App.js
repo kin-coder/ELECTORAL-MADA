@@ -7,6 +7,7 @@ import Login from './components/layouts/login';
 // import ForgotPassword from './components/layouts/forgot_password.js'
 // import ChangePassword from './components/layouts/change_pass.js'
 import Home from './components/layouts/index';
+import Sondages from './components/sondages/index.js';
 
 // const URL_WEBUI = "https://accounts.blockchainmyart.org/#/webui";
 class App extends Component {
@@ -54,6 +55,11 @@ class App extends Component {
               
               path='/dashboard'
               component={(props) => <Dashboard {...props} appMount={this.state.appMount} callLogout={this.callLogout} isAuth={this.state.isAuth} />}
+            /> 
+            <Route
+              exact
+              path='/sondages'
+              component={(props) => <Sondages/>}
             />    
     
               <Route
