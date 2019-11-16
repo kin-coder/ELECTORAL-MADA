@@ -12,6 +12,7 @@ gem 'rack-cors'
 
 # gem 'devise-jwt'
 gem 'rails_jwt_auth'
+gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 
 
 

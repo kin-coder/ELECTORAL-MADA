@@ -3,9 +3,9 @@ import BASE_URL from '../../../cinfig';
 import axios from 'axios';
 import { Form } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-dropzone-uploader/dist/styles.css';
-import Dropzone from 'react-dropzone-uploader';
-import 'react-toastify/dist/ReactToastify.css';
+// import 'react-dropzone-uploader/dist/styles.css';
+// import Dropzone from 'react-dropzone-uploader';
+// import 'react-toastify/dist/ReactToastify.css';
 
 class Upload extends Component {
     state = {
@@ -35,28 +35,28 @@ class Upload extends Component {
         };
     
     render() {
-        const MyUploader = () => {
-            // specify upload params and url for your files
-            const getUploadParams = ({ meta }) => { return { url: 'https://47b00da9.ngrok.io/avatar/' } }
+        // const MyUploader = () => {
+        //     // specify upload params and url for your files
+        //     const getUploadParams = ({ meta }) => { return { url: 'https://47b00da9.ngrok.io/avatar/' } }
             
-            // called every time a file's `status` changes
-            const handleChangeStatus = ({ meta, file }, status) => { console.log(status, meta, file) }
+        //     // called every time a file's `status` changes
+        //     const handleChangeStatus = ({ meta, file }, status) => { console.log(status, meta, file) }
             
-            // receives array of files that are done uploading when submit button is clicked
-            const handleSubmit = (files, allFiles) => {
-              console.log(files.map(f => f.meta))
-              allFiles.forEach(f => f.remove())
-            }
+        //     // receives array of files that are done uploading when submit button is clicked
+        //     const handleSubmit = (files, allFiles) => {
+        //       console.log(files.map(f => f.meta))
+        //       allFiles.forEach(f => f.remove())
+        //     }
           
-            return (
-              <Dropzone
-                getUploadParams={getUploadParams}
-                onChangeStatus={handleChangeStatus}
-                onSubmit={handleSubmit}
-                accept="image/*,audio/*,video/*"
-              />
-            )
-          }
+        //     return (
+        //       <Dropzone
+        //         getUploadParams={getUploadParams}
+        //         onChangeStatus={handleChangeStatus}
+        //         onSubmit={handleSubmit}
+        //         accept="image/*,audio/*,video/*"
+        //       />
+        //     )
+        //   }
         
         return (
 
@@ -70,7 +70,7 @@ class Upload extends Component {
                             <label htmlFor="inputNumber">NUMERO</label>
                         </div>
                         <div className="form-label-group mb-5">
-                            <MyUploader />
+                            {/* <MyUploader /> */}
                         </div>
 
                 </div>

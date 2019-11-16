@@ -18,5 +18,13 @@ Rails.application.routes.draw do
   get '/api/candidates', to: 'candidate_manager#all_candidates'
   get '/api/candidates/general_stat', to: 'candidate_manager#all_vote_details'
   post '/api/candidates/create', to: 'candidate_manager#create_candidate'
+
+  get '/surveys', to: 'survey#all'
+  get '/survey/show/:id', to: 'survey#show'
+  post '/surveys/create', to: 'survey#create'
+  get '/survey/media/:id', to: 'survey#media'
+
+  # post '/api/test_upload', to: 'test_api#test_upload'
+  # get '/test_get_file', to: 'test_api#serve_file'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

@@ -1,6 +1,7 @@
 class Voter
   include Mongoid::Document
   include Mongoid::Search
+  include Mongoid::Timestamps
 
   field :first_name, type: String
   field :last_name, type: String
@@ -14,6 +15,7 @@ class Voter
   field :voted, type: Integer
 
   belongs_to :candidate, optional: true
+  has_many :surveys
   # has_one :session_vote, optional: true
 
   search_in :first_name, :last_name, :cin
