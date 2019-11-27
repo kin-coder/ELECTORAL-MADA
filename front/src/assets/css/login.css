@@ -12,7 +12,7 @@
     font-family: 'Barlow Semi Condensed', sans-serif;
   }
 
-  .btn {
+  .btn, select {
     border-radius: 0px!important;
   }
   
